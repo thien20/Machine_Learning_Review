@@ -27,6 +27,15 @@ class GradientDescent:
     def predict(self, X):
         return np.dot(X, self.theta)
     
+    def plot_fit_and_pred(self, X, y):
+        plt.scatter(X[:, 1], y)
+        plt.plot(X[:, 1], self.predict(X), c='r')
+        plt.xlabel('X')
+        plt.ylabel('y')
+        plt.title('Gradient Descent - Fit and Prediction')
+        plt.show()
+        
+
     def plot_cost_history(self):
         plt.plot(range(self.num_iterations), self.cost_history)
         plt.xlabel('Iteration')
@@ -43,12 +52,16 @@ if __name__ == "__main__":
     y = np.array([200, 300, 400, 500])
 
     # Reduced learning rate and increased iterations
-    gd = GradientDescent(learning_rate=0.01, num_iterations=1000)
+    gd = GradientDescent(learning_rate=0.1, num_iterations=1000)
     gd.fit(X_normalized, y)
-    # gd.plot_cost_history()
-
+    gd.plot_cost_history()
     print("Learned Parameters (theta):", gd.theta)
 
     X_pred = np.array([[100, 5]]) / np.max(X, axis=0)
     prediction = gd.predict(X_pred)
     print("Prediction for X=[100, 5]:", prediction)
+
+    X_normalized = np.append(X_normalized, X_pred).reshape(-1, 2)
+    y = np.append(y, prediction)
+    print("This is last X_normalized: ", X_normalized)
+    gd.plot_fit_and_pred(X_normalized, y)
