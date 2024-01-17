@@ -37,12 +37,13 @@ class GradientDescent:
 if __name__ == "__main__":
     # Generate data and normalize features
     X = np.array([[100, 1], [100, 2], [100, 3], [100, 4]])
-    X_normalized = X / np.max(X, axis=0)  # Normalization
+    X_normalized = X / np.max(X, axis=0)
     print("This is X_normalized: ", X_normalized)
 
     y = np.array([200, 300, 400, 500])
 
-    gd = GradientDescent(learning_rate=0.01, num_iterations=1000)  # Reduced learning rate and increased iterations
+    # Reduced learning rate and increased iterations
+    gd = GradientDescent(learning_rate=0.01, num_iterations=1000)
     gd.fit(X_normalized, y)
     # gd.plot_cost_history()
 
