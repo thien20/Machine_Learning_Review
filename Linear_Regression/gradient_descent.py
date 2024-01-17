@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class GradientDescent:
-    def __init__(self, learning_rate=0.01, num_iterations=100):
+    def __init__(self, learning_rate, num_iterations):
         self.learning_rate = learning_rate
         self.num_iterations = num_iterations
         self.theta = None
