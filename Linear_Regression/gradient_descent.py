@@ -34,11 +34,20 @@ class GradientDescent:
         plt.title('Gradient Descent - Cost History')
         plt.show()
 
-# Geneate data
-X = np.array([[100, 1], [100, 2], [100, 3], [100, 4]])
-y = np.array([200, 300, 400, 500])
+if __name__ == "__main__":
+    # Generate data and normalize features
+    X = np.array([[100, 1], [100, 2], [100, 3], [100, 4]])
+    X_normalized = X / np.max(X, axis=0)  # Normalization
+    print("This is X_normalized: ", X_normalized)
 
-gd = GradientDescent(learning_rate=0.1, num_iterations=100)
-gd.fit(X, y)
-# gd.plot_cost_history()
-print("prediction: ",gd.predict([[100, 5]]))
+    y = np.array([200, 300, 400, 500])
+
+    gd = GradientDescent(learning_rate=0.01, num_iterations=1000)  # Reduced learning rate and increased iterations
+    gd.fit(X_normalized, y)
+    # gd.plot_cost_history()
+
+    print("Learned Parameters (theta):", gd.theta)
+
+    X_pred = np.array([[100, 5]]) / np.max(X, axis=0)
+    prediction = gd.predict(X_pred)
+    print("Prediction for X=[100, 5]:", prediction)
