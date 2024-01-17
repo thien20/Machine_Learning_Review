@@ -10,14 +10,18 @@ class GradientDescent:
     
     def fit(self, X, y):
         num_samples, num_features = X.shape
+        # initialize theta = 0 with respect to the function f(x) = theta_0 + theta_1 * x
         self.theta = np.zeros(num_features)
         self.cost_history = []
         
         for i in range(self.num_iterations):
+            # calculate the current y values
             y_pred = np.dot(X, self.theta)
-            error = (y_pred - y)
 
-            gradient = np.dot(X.T, error) / num_samples
+            error = (y_pred - y)
+            # calculate the gradient with respect to 
+            # the derivative of the cost function(theta_0 and theta_1)
+            gradient = np.dot(X.T, error) / num_samples # can be understood as the average of the derivative of the cost function
 
             self.theta -= self.learning_rate * gradient
             
