@@ -21,18 +21,28 @@ class LogisticRegression:
             # compute the error ~ loss 
             # --> gradient descent wrt w and b from the derivative of the cost function
             y_hat = self.fit_sigmoid(np.dot(X, self.w) + self.b)
-            error = y_hat - y # loss
-            gradient = np.dot(X.T, error) / num_samples # similar to linear regression
+            d_error = y_hat - y # loss
+            gradient = np.dot(X.T, d_error) / num_samples # similar to linear regression | derivative of w
             self.w = self.w - self.learning_rate * gradient
-            self.b = self.b - self.learning_rate * np.mean(error)
+            self.b = self.b - self.learning_rate * np.mean(d_error)
             # cost function of logistic regression
-            cost = error / num_samples
+            cost = d_error / num_samples
             self.cost_his.append(cost)
         return self.w, self.b
 
     def predict(self, X):
         return self.fit_sigmoid(np.dot(X, self.w) + self.b)
     
+    def plot_data(self, w, b):
+        x_decision_boundary = np.array([np.min(X[:, 0]), np.max(X[:, 0])])
+        y_decision_boundary = - (w[0] * x_decision_boundary + b) / w[1]
+        plt.scatter(X[:, 0], X[:, 1], c=y)
+        plt.plot(x_decision_boundary, y_decision_boundary, c="r")
+        plt.xlabel("X1")
+        plt.ylabel("X2")
+        plt.title("Logistic Regression")
+        plt.show()
+
     def plot_cost(self):
         plt.plot(np.arange(len(self.cost_his)), self.cost_his)
         plt.xlabel("Epochs")
@@ -57,3 +67,4 @@ if __name__ == "__main__":
         print("label: 1 - y_pred: {}".format(y_pred))
 
     log_reg.plot_cost()
+    log_reg.plot_data(log_reg.w, log_reg.b)
